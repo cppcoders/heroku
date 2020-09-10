@@ -1,6 +1,5 @@
 from flask import Flask, request, redirect, render_template
 import numpy as np
-from tensorflow.keras.models import load_model
 from PIL import Image
 import base64
 from io import BytesIO
