@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            padding: 0px;
+            margin: 0px;
+            background-color: #D4D4D4;
+            align-items: center;
+            box-sizing: border-box;
+            width: 100%;
+            font: inherit;
+            font-size: 100%;
+            vertical-align: baseline;
+        }
+
+        .main-section {
+            text-align: center;
+            margin: 0px auto;
+            padding: 100px;
+            margin-top: 100px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 17px 50px 0 rgba(0, 0, 0, .19), 0 12px 15px 0 rgba(0, 0, 0, .24);
+        }
+
+
+        .cont {
+
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 100px;
+            margin-top: 30px;
+            padding: 0px
+        }
+
+        .card-text {
+            font-weight: 900;
+        }
+
+        .footer {
+            width: 100%;
+            background-color: #2e2e2e;
+            text-align: center;
+            padding: 50px;
+            color: #fff;
+        }
+        .footer p{
+            margin: 0px ; 
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12 col-11 main-section">
+                <a href="/"><img class="mx-auto d-block col-lg-8 col-sm-12 col-11 " src="/static/1.png"></a>
+                </br>
+                <p class="text-center font-weight-bold text-muted">Please Upload Your Satellite Images, Max 10 Images
+                </p>
+                </br>
+                <form id="upload" action="/predict" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="uploadFile" accept="image/*" required multiple="multiple" />
+                    <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+                </form>
+
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="cont col-lg-10 col-sm-12 col-11 main-section" id="cont">
+
+    </div>
+
+    <footer class="footer">
+        <p>@ 2020 Copyrights <span>T7COMP in <a href="https://egsa.gov.eg/">EGSA</a> training program</span> </p>
+    </footer>
+
+    <script>
+        function fill(key, value) {
+
+            /*
+            <div class="card">
+                <img class="card-img-top" src="static/upload/images/test.png" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                            card's content.</p>
+                </div>
+            </div>
+            */
+
+            prediction = value
+
+            par = document.getElementById("cont");
+
+            c = document.createElement('div')
+            c.classList.add('card')
+            c.classList.add('col-lg-2')
+            c.classList.add('col-3')
+            c.style.padding = '0px'
+            c.style.margin = '25px'
+
+            im = document.createElement('img')
+            im.classList.add('card-img-top')
+            im.classList.add('col-lg-12')
+            im.alt = 'card image cap'
+            im.style.padding = '0px'
+            im.setAttribute('src', 'data:image/png;base64,' + key);
+
+            c2 = document.createElement('div')
+            c2.classList.add('card-body')
+
+            p = document.createElement('p')
+            p.classList.add('card-text')
+            p.classList.add('text-center')
+            p.innerHTML = prediction // Prediction of the image 
+            c2.appendChild(p)
+            c.appendChild(im)
+            c.appendChild(c2)
+            par.appendChild(c)
+        }
+
+        if ('{{ message}}' != "Home") {
+            var dat = JSON.parse('{{ message | tojson | safe}}')
+            for (const [key, value] of Object.entries(dat)) {
+                fill(key, value)
+            }
+        }
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
