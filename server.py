@@ -56,4 +56,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(host = 'sat-classification.herokuapp.com')
+    app.run(debug=True)
