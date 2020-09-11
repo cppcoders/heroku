@@ -6,7 +6,7 @@ from PIL import Image
 import base64
 from io import BytesIO
 
-
+#
 app = Flask(__name__)
 
 app.secret_key = "counter=0"
