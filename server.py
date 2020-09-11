@@ -49,8 +49,8 @@ def predict():
         img = img[..., :3]
         img = img.reshape(-1, 256, 256, 3)
         predict = 'desert'
-        #predict = model.predict(img)
-        #predict = labels[np.argmax(predict)]
+#        predict = model.predict(img)
+#        predict = labels[np.argmax(predict)]
         pred[pim] = predict
     return render_template('index.html', message=pred)
 
