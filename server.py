@@ -22,7 +22,7 @@ def index():
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 ALLOWED_EXTENSIONS = (".jpg", ".jpeg", ".png")
-model = load_model("static/model.hdf5")
+#model = load_model("static/model.hdf5")
 
 
 @app.route('/predict', methods=['GET', 'POST'])
@@ -46,8 +46,9 @@ def predict():
         img = img / 255
         img = img[..., :3]
         img = img.reshape(-1, 256, 256, 3)
-        predict = model.predict(img)
-        predict = labels[np.argmax(predict)]
+        predict = 'desert'
+        #predict = model.predict(img)
+        #predict = labels[np.argmax(predict)]
         pred[pim] = predict
     return render_template('index.html', message=pred)
 
